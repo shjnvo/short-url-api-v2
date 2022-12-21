@@ -3,15 +3,13 @@ class ShortUrl < ApplicationRecord
 
   HOST = 'http://localhost:3000'
 
-  validates :original_url, :code, presence: true
+  validates :original_url, presence: true
+  validates :code, presence: true
+  validates :original_url, url: true
   validates :code, uniqueness: { case_sensitive: true }
 
-  before_validation :assign_code
-
-  private
-
   def assign_code
-    generate_code(:code, 6) unless self.code
-    self.code
+    generate_code(:code, 6) unless code
+    code
   end
 end

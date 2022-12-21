@@ -38,3 +38,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains.
+gem 'public_suffix'

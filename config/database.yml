@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   database: url_shortener_api_development
+  username: postgres
+  password: password
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

@@ -1,17 +1,17 @@
 class UrlBuilder
-  delegate :code, to: :url
+  delegate :code, to: :short_url
 
-  def initialize(url)
-    @url = url
+  def initialize(short_url)
+    @short_url = short_url
   end
 
   def build
-    url.code = build_shortened
+    short_url.code = build_shortened
   end
 
   private
 
-  attr_reader :url
+  attr_reader :short_url
 
   def build_shortened
     real_time << 7

@@ -1,11 +1,9 @@
 class V1::ShortUrlsController < ApplicationController
-  HOST = 'http:localhost:3000'
-
   def encode
     short_url = ShortUrl.new(original_url: url_params[:url])
     UrlBuilder.new(short_url).build
     if short_url.save
-      render json: { short_url: "#{HOST}/#{short_url.code}" }, status: :created
+      render json: { short_url: "#{ShortUrl::HOST}/#{short_url.code}" }, status: :created
     else
       render json: { message: I18n.t('short_url.errors.encode.unprocessable_entity') }, status: :unprocessable_entity
     end

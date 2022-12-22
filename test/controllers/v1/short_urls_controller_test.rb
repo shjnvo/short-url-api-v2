@@ -6,7 +6,7 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
     body = JSON.parse(response.body)
     short_url = ShortUrl.first
-    assert_equal "#{V1::ShortUrlsController::HOST}/#{short_url.code}", body['short_url']
+    assert_equal "#{ShortUrl::HOST}/#{short_url.code}", body['short_url']
   end
 
   test 'POST v1/encode with url wrong format' do

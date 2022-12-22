@@ -5,4 +5,8 @@ class ShortUrl < ApplicationRecord
   validates :code, presence: true
   validates :original_url, url: true
   validates :code, uniqueness: { case_sensitive: true }
+
+  def link
+    "#{ShortUrl::HOST}/v1/#{code}"
+  end
 end

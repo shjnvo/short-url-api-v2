@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+  short_url:
+    errors:
+      encode:
+        unprocessable_entity: URL is wrong format !!!
+      decode:
+        no_found: Not found URL !!!

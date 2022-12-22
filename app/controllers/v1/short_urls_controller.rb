@@ -1,9 +1,33 @@
 class V1::ShortUrlsController < ApplicationController
+  HOST = 'http:localhost:3000'
+
   def encode
-    render json: { short_url: 'this is decode URL' }
+    short_url = ShortUrl.new(original_url: url_params[:url])
+    UrlBuilder.new(short_url).build
+    if short_url.save
+      render json: { short_url: "#{HOST}/#{short_url.code}" }, status: :created
+    else
+      render json: { message: I18n.t('short_url.errors.encode.unprocessable_entity') }, status: :unprocessable_entity
+    end
   end
 
   def decode
-    render json: { original_url: 'this is decode URL' }
+    original_url = UrlLookupService.new(code_params[:code]).call
+
+    if original_url
+      render json: { original_url: original_url }, status: :ok
+    else
+      render json: { message: I18n.t('short_url.errors.decode.no_found') }, status: :not_found
+    end
+  end
+
+  private
+
+  def url_params
+    params.permit(:url)
+  end
+
+  def code_params
+    params.permit(:code)
   end
 end

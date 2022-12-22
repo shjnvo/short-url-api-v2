@@ -6,6 +6,9 @@ ruby '2.7.5'
 # A Ruby gem to load environment variables from `.env`
 gem 'dotenv-rails', groups: [:development, :test]
 
+# Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+gem 'rack-cors'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7'
 # Use postgresql as the database for Active Record

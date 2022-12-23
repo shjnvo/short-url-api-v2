@@ -6,12 +6,17 @@ class UrlBuilder
   end
 
   def build
-    short_url.code = build_shortened
+    if fetch_from_db
+      fetch_from_db
+    else
+      short_url.code = build_shortened
+      short_url
+    end
   end
 
   private
 
-  attr_reader :short_url
+  attr_accessor :short_url
 
   def build_shortened
     real_time << 7
@@ -21,5 +26,9 @@ class UrlBuilder
 
   def real_time
     Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)
+  end
+
+  def fetch_from_db
+    ShortUrl.find_by(original_url: short_url.original_url)
   end
 end

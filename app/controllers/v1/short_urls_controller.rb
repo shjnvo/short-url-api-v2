@@ -1,7 +1,8 @@
 class V1::ShortUrlsController < ApplicationController
   def encode
     short_url = ShortUrl.new(original_url: url_params[:url])
-    UrlBuilder.new(short_url).build
+    short_url = UrlBuilder.new(short_url).build
+
     if short_url.save
       render json: { short_url: short_url.link }, status: :created
     else

@@ -33,6 +33,21 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'URL is wrong format !!!', body['message']
   end
 
+  test 'POST v1/encode do not store same URL' do
+    post('/v1/encode', params: { url: 'https://exmaple.com/abc/xyz' })
+    assert_response :created
+    body = JSON.parse(response.body)
+    short_url = ShortUrl.first
+    assert_equal short_url.link, body['short_url']
+    assert_equal 1, ShortUrl.count
+
+    post('/v1/encode', params: { url: 'https://exmaple.com/abc/xyz' })
+    assert_response :created
+
+    assert_equal short_url.link, body['short_url']
+    assert_equal 1, ShortUrl.count
+  end
+
   test 'GET v1/decode' do
     short_url = ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
     get("/v1/#{short_url.code}")

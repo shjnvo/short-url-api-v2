@@ -90,6 +90,8 @@ test:
 #
 production:
   <<: *default
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
   database: url_shortener_api_production
-  username: url_shortener_api
-  password: <%= ENV['URL_SHORTENER_API_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_21_070725) do
+ActiveRecord::Schema.define(version: 2022_12_23_151206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_070725) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["code"], name: "index_short_urls_on_code", unique: true
+    t.index ["original_url"], name: "index_short_urls_on_original_url"
   end
 
 end

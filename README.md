@@ -118,3 +118,10 @@ We can optimize this design further by adding a caching layer to our service. Wi
 - https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
 - https://www.geeksforgeeks.org/system-design-url-shortening-service/
 - https://www.code-recipe.com/post/url-shortener
+
+## TODO
+
+- [ ] Make Authentication Feature
+- [ ] Move Database To MogodDB
+- [ ] Setup Cache With Redis
+- [ ] Challenge With Same Original URL Return Same Code Don't Hit DB

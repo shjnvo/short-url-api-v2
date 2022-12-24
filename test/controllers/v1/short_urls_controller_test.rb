@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
+  teardown do
+    Rails.cache.clear
+  end
+
   test 'POST v1/encode' do
     post('/v1/encode', params: { url: 'https://exmaple.com/abc/xyz' })
     assert_response :created
@@ -61,6 +65,40 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
   test 'GET v1/decode with wrong code' do
     wrong_code = 'xxxx1234'
     get("/v1/#{wrong_code}")
+
+    assert_response :not_found
+    body = JSON.parse(response.body)
+
+    assert_equal 'Not found URL !!!', body['message']
+  end
+
+  test 'GET v1/decode read from Cache' do
+    url = 'https://exmaple.com/abc/xyz'
+    code = 'xxxx123'
+
+    cache_service = CacheService.new(code)
+    cache_service.write(url)
+
+    get('/v1/xxxx123')
+
+    assert_equal url, cache_service.read
+
+    assert_response :ok
+    body = JSON.parse(response.body)
+
+    assert_equal url, body['original_url']
+  end
+
+  test 'GET v1/decode with UrlLookupService#call is nil' do
+    code = 'abcd123'
+
+    mock = Minitest::Mock.new
+    mock.expect :call, nil
+    UrlLookupService.stub :new, mock do
+      code
+    end
+
+    get("/v1/#{code}")
 
     assert_response :not_found
     body = JSON.parse(response.body)

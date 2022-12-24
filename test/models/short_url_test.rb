@@ -60,4 +60,23 @@ class ShortUrlTest < ActiveSupport::TestCase
     assert_not unvalid_short_url.save
     assert_equal ['has already been taken'], unvalid_short_url.errors.messages[:code]
   end
+
+  test '#link' do
+    test_code = 'xxxx123'
+
+    short_url = ShortUrl.new(original_url: 'https://example.com/abc/xyz', code: test_code)
+
+    assert "#{ShortUrl::HOST}/v1/#{test_code}", short_url.link
+  end
+
+  test '#exist_url?' do
+    short_url = ShortUrl.create(original_url: 'https://example.com/abc/xyz', code: 'xxxx1234')
+    duplicate_url = ShortUrl.new(original_url: 'https://example.com/abc/xyz')
+    new_url = ShortUrl.new(original_url: 'https://example999.com/abc/xyz')
+
+    assert duplicate_url.exist_url?
+    assert_equal short_url.link, duplicate_url.link
+
+    assert_not new_url.exist_url?
+  end
 end

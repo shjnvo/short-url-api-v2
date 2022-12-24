@@ -123,6 +123,8 @@ We can optimize this design further by adding a caching layer to our service. Wi
 
 - [ ] Make Authentication Feature
 - [ ] Move Database To MogodDB
-- [ ] Setup Cache With Redis
 - [ ] Set Exprience For Short URL
-- [ ]
+- [ ] Make Origin URL Is Unique In Database
+- [ ] Test Builder
+- [ ] Test Service
+

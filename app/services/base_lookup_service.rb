@@ -4,7 +4,9 @@ class BaseLookupService
   end
 
   def call
-    raise NotImplementedError.new("Please Implement method [#{__method__}]")
+    (cache_service.read || fetch_from_db).tap do |result|
+      cache_service.write(result)
+    end
   end
 
   private

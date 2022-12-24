@@ -7,7 +7,7 @@ class ShortUrl < ApplicationRecord
   validates :code, uniqueness: { case_sensitive: true }
 
   def link
-    "#{ShortUrl::HOST}/v1/#{code}"
+    "#{ShortUrl::HOST}/#{code}"
   end
 
   def exist_url?

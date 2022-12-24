@@ -74,12 +74,12 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
 
   test 'GET v1/decode read from Cache' do
     url = 'https://exmaple.com/abc/xyz'
-    code = 'xxxx123'
+    code = 'bbbb123'
 
     cache_service = CacheService.new(code)
     cache_service.write(url)
 
-    get('/v1/xxxx123')
+    get("/v1/#{code}")
 
     assert_equal url, cache_service.read
 
@@ -104,5 +104,25 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
 
     assert_equal 'Not found URL !!!', body['message']
+  end
+
+  test 'GET /:code reditect to original url' do
+    short_url = ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
+
+    get("/#{short_url.code}")
+
+    assert_response :found
+  end
+
+  test 'GET /:code reder error with wrong code' do
+    ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
+
+    get("/wrong_code")
+
+    assert_response :ok
+
+    body = response.body
+
+    assert_equal 'Error: Unable to find URL to redirect to.', body
   end
 end

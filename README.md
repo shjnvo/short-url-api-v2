@@ -78,6 +78,7 @@ URL-shortening services provide attackers and spammers with phishing methods wit
 
 ### Referenced:
 - https://www.techrepublic.com/article/url-shortening-yet-another-security-risk/
+- https://www.sans.org/blog/the-secrets-in-url-shortening-services/
 - https://portswigger.net/daily-swig/cybercriminals-use-reverse-tunneling-and-url-shorteners-to-launch-virtually-undetectable-phishing-campaigns
 
 

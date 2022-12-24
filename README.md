@@ -6,7 +6,8 @@ Shortened URLs are generated using a base64 token strategy, trying to avoid coll
 I using `Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)` to make unique number with 13 digit. Base on it and a base64, I encoded the original URL
 So now the shortener code start with 7 characters, and it will increase in the future when `Process.clock_gettime` have more than 13 digit
 
-
+ - Endpoint for encode `POST`  `/v1/encode`
+ - Endpoint for decode `GET`  `/v1/:code`
 
 ## Technologies
 

@@ -9,4 +9,9 @@ class ShortUrl < ApplicationRecord
   def link
     "#{ShortUrl::HOST}/v1/#{code}"
   end
+
+  def exist_url?
+    exist_code = CodeLookupService.new(original_url).call
+    self.code = exist_code if exist_code
+  end
 end

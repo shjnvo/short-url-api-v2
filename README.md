@@ -124,4 +124,5 @@ We can optimize this design further by adding a caching layer to our service. Wi
 - [ ] Make Authentication Feature
 - [ ] Move Database To MogodDB
 - [ ] Setup Cache With Redis
-- [ ] Challenge With Same Original URL Return Same Code Don't Hit DB
+- [ ] Set Exprience For Short URL
+- [ ]

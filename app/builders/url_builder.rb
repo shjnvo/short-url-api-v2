@@ -21,7 +21,7 @@ class UrlBuilder
     last_short_url = ShortUrl.last
     encode_number = last_short_url ? last_short_url.id + 1 : STATIC_COUNTER
 
-    raise MaxCount.new('The database has limited counter') unless encode_number < LIMIT_COUNT
+    raise LimitCountError.new('The database has limited counter') unless encode_number < LIMIT_COUNT
 
     [IntToBase62.encode(encode_number), encode_number]
   end

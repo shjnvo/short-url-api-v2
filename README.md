@@ -1,10 +1,10 @@
 # README
 
- This Rails app is an implementation of a url shortener kike TinyURL
+This Rails app is an implementation of a url shortener kike TinyURL
 
-Shortened URLs are generated using a base64 token strategy, trying to avoid collisions.
-I using `Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)` to make unique number with 13 digit. Base on it and a base64, I encoded the original URL
-So now the shortener code start with 7 characters, and it will increase in the future when `Process.clock_gettime` have more than 13 digit
+Short urls from base conversion
+
+Think of the seven-bit short url as a hexadecimal number (0–9, a-z, A-Z) (For e.g. aKc3K4b) . Each short url can be mapped to a decimal integer by using base conversion and vice versa.
 
  - Endpoint for encode `POST`  `/v1/encode`
  - Endpoint for decode `GET`  `/v1/:code`

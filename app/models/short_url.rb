@@ -1,5 +1,5 @@
 class ShortUrl < ApplicationRecord
-  HOST = ENV['HOST']
+  HOST = ENV['FE_HOST']
 
   validates :original_url, presence: true
   validates :code, presence: true

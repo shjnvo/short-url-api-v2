@@ -20,15 +20,6 @@ class V1::ShortUrlsController < ApplicationController
     end
   end
 
-  def redirect_link
-    original_url = UrlLookupService.new(code_params[:code]).call
-    if original_url
-      redirect_to original_url
-    else
-      render html: 'Error: Unable to find URL to redirect to.'
-    end
-  end
-
   private
 
   def url_params

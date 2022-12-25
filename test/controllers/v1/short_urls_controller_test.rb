@@ -112,24 +112,4 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 'Not found URL !!!', body['message']
   end
-
-  test 'GET /:code reditect to original url' do
-    short_url = ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
-
-    get("/#{short_url.code}")
-
-    assert_response :found
-  end
-
-  test 'GET /:code reder error with wrong code' do
-    ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
-
-    get('/wrong_code')
-
-    assert_response :ok
-
-    body = response.body
-
-    assert_equal 'Error: Unable to find URL to redirect to.', body
-  end
 end

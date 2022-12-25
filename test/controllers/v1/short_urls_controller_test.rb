@@ -20,6 +20,13 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
 
     assert_equal 'URL is wrong format !!!', body['message']
+
+    post('/v1/encode', params: { url: 'https://exmaple.com/abc/\xyz' })
+
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+
+    assert_equal 'URL is wrong format !!!', body['message']
   end
 
   test 'POST v1/encode with code is nil' do
@@ -117,7 +124,7 @@ class V1::ShortUrlsControllerTest < ActionDispatch::IntegrationTest
   test 'GET /:code reder error with wrong code' do
     ShortUrl.create!(original_url: 'https://exmaple.com/abc/xyz', code: 'xxxx1234')
 
-    get("/wrong_code")
+    get('/wrong_code')
 
     assert_response :ok
 
